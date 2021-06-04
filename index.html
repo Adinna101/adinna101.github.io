@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="styles.css"> 
+
+  <title>KAJ Semestral Project</title>
+
+</head>
+<body>
+
+  <div>
+
+    <p>Vítejte u mé semestrální práce do předmětu KAJ</p>
+
+   
+    
+</div>
+
+<script src="https://kaboomjs.com/lib/0.5.0/kaboom.js"></script>
+<script src="scenes/game.js"></script>
+
+
+
+<audio controls>
+  <source src="sounds/htmlSong.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio> 
+
+
+
+<script>
+
+function allStorage() {
+
+var values = [],
+    keys = Object.keys(localStorage),
+    i = keys.length;
+
+while ( i-- ) {
+
+    document.getElementById("arrPrint").innerHTML = '<li>' + keys[i] + localStorage.getItem(keys[i])+ '</li>';
+  }
+return values;
+}
+</script>
+
+<button onclick="allStorage()">Click me</button> 
+<pre id="arrPrint"></pre>
+</body>
+</html>
