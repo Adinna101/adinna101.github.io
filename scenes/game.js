@@ -1,6 +1,6 @@
 kaboom({
     global: true,
-    fullscreen: false,
+    fullscreen: true,
     scale: 1.5,
     debug: true,
     clearColor: [0,0,0,1]
@@ -280,9 +280,13 @@ kaboom({
   });
 
 scene('lose', ({ score }) => {
-  add([text(score, 32), origin('center'), pos(width() / 2, height() / 2 - 32)])
-  add([text("Press enter", 32), origin('center'), pos(width() / 2, height() / 2)])
-  add([text("to play again !!", 32), origin('center'), pos(width() / 2, height() / 2 + 32)])
+  keys = Object.keys(localStorage)
+  add([text(score, 32), origin('center'), pos(width() / 2, height() / 2 - 64)])
+  add([text("Press enter", 32), origin('center'), pos(width() / 2, height() / 2-32)])
+  add([text("to play again !!", 32), origin('center'), pos(width() / 2, height() / 2)])
+  add([text("HighScore: ", 32), origin('center'), pos(width() / 2, height() / 2 + 32)])
+  add([text(keys[0] + " " +localStorage.getItem(keys[0]), 32), origin('center'), pos(width() / 2, height() / 2 + 64)])
+
 
   play("deadSound")
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="cs">
 <head>
   <meta charset="utf-8">
 
@@ -9,44 +9,43 @@
 
 </head>
 <body>
-
-  <div>
-
-    <p>Vítejte u mé semestrální práce do předmětu KAJ</p>
-
-   
-    
-</div>
-
-<script src="https://kaboomjs.com/lib/0.5.0/kaboom.js"></script>
-<script src="scenes/game.js"></script>
+  <nav>
+    <a href="index.html">HOME</a>
+    <a href="game.html">Hra zde</a>
 
 
 
-<audio controls>
-  <source src="sounds/htmlSong.mp3" type="audio/mpeg">
-Your browser does not support the audio element.
-</audio> 
+  </nav> 
+
+
+  <p>Vítejte u mé semestrální práce do předmětu KAJ</p>
 
 
 
-<script>
 
-function allStorage() {
+<div class="view view-tenth">  
+  <img src="imgs/console.png" />  
+  <div class="mask">  
+  <h2>Ovládání</h2>  
+  <p>Pohyb doleva a doprava pomocí šipek dole a doprava, skok pomocí šipky nahoru, vstup do nového levelu pomocí šipky dolů.</p>  
+  </div>  
+</div>  
 
-var values = [],
-    keys = Object.keys(localStorage),
-    i = keys.length;
 
-while ( i-- ) {
 
-    document.getElementById("arrPrint").innerHTML = '<li>' + keys[i] + localStorage.getItem(keys[i])+ '</li>';
-  }
-return values;
-}
-</script>
+<div class="view view-tenth">  
+  <img src="imgs/music.jpg" />  
+  <div class="mask">  
+  <h2>Originální muzika</h2>  
+  <p>Dopřejte si trochu nostalgie!</p>   
+  <audio controls>
+    <source src="sounds/htmlSong.mp3" type="audio/mpeg">
+    Váš internetový prohlížeč nepodporuje audio element.
+  </audio> 
+  </div>  
+</div>  
 
-<button onclick="allStorage()">Click me</button> 
-<pre id="arrPrint"></pre>
+
+
 </body>
 </html>
