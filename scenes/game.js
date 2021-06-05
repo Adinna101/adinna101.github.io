@@ -91,7 +91,7 @@ kaboom({
     width: 20,
     height: 20,
           // define each object as a list of components
-          '=': [sprite('block'), solid(),'bricks'],
+          '=': [sprite('block'), solid()],
           '$': [sprite('coin'), 'coin'],
           '%': [sprite('surprise'), scale(0.5),solid(), 'coin-surprise'],
           '*': [sprite('surprise'), scale(0.5),solid(), 'mushroom-surprise'],
