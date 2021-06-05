@@ -68,7 +68,7 @@ p { color: #adb7bd; font-family: 'Lucida Sans', Arial, sans-serif; font-size: 16
 
 
 
-@media only screen {
+@media only screen and (min-width: 640px) {
   .view {
     width: 320px;
     height: 233px;
