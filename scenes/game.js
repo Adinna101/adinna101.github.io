@@ -91,7 +91,7 @@ kaboom({
     width: 20,
     height: 20,
           // define each object as a list of components
-          '=': [sprite('block'), solid()],
+          '=': [sprite('block'), solid(),'bricks'],
           '$': [sprite('coin'), 'coin'],
           '%': [sprite('surprise'), scale(0.5),solid(), 'coin-surprise'],
           '*': [sprite('surprise'), scale(0.5),solid(), 'mushroom-surprise'],
@@ -103,15 +103,17 @@ kaboom({
           '^': [
             sprite('evil-shroom-one'),
             solid(),
+            body(),
             //tags as strings
             'dangerous',
+            { direction: true}
           ],
     '#': [sprite('mushroom'), body(), 'mushroom'],
     '!': [sprite('blue-block'), scale(0.5), solid()],
-    '£': [sprite('blue-brick'), scale(0.5), solid()],
-    'z': [sprite('blue-evil-shroom'), scale(0.5), 'dangerous'],
+    '£': [sprite('blue-brick'), scale(0.5), solid(), 'bricks'],
+    'z': [sprite('blue-evil-shroom'), scale(0.5),body(),solid(), 'dangerous',{ direction: true}],
     '@': [sprite('blue-surprise'), scale(0.5), solid(), 'coin-surprise'],
-    'x': [sprite('blue-steel'), scale(0.5), solid()],
+    'x': [sprite('blue-steel'), scale(0.5), solid(),'bricks'],
 
   };
 
@@ -182,66 +184,91 @@ kaboom({
     ])
 
     action('mushroom', (m) => {
-      m.move(10, 0)
+      m.move(10, 0);
     })
 
     // grow an mushroom or flower if player's head bumps into an obj with "surprise" tag
     player.on('headbump', (obj) => {
       if (obj.is('coin-surprise')) {
-        gameLevel.spawn('$', obj.gridPos.sub(0, 1)),
-        destroy(obj)
-        gameLevel.spawn('}', obj.gridPos.sub(0, 0))
+        gameLevel.spawn('$', obj.gridPos.sub(0, 1));
+        destroy(obj);
+        gameLevel.spawn('}', obj.gridPos.sub(0, 0));
       }
       if (obj.is('mushroom-surprise')) {
-        gameLevel.spawn('#', obj.gridPos.sub(0, 1))
-        destroy(obj)
-        gameLevel.spawn('}', obj.gridPos.sub(0, 0))
+        gameLevel.spawn('#', obj.gridPos.sub(0, 1));
+        destroy(obj);
+        gameLevel.spawn('}', obj.gridPos.sub(0, 0));
       }
     })
 
     // player grows big collides with an "mushroom" obj
     player.collides('mushroom', (m) => {
-      destroy(m)
+      destroy(m);
       // as we defined in the big() component
-      player.biggify(6)
+      player.biggify(6);
     })
 
     // increase score if meets coin
     player.collides('coin', (c) => {
-      destroy(c)
+      destroy(c);
       play("coin");
-      scoreLabel.value++
-      scoreLabel.text = scoreLabel.value
+      scoreLabel.value++;
+      scoreLabel.text = scoreLabel.value;
     })
+
+
 
     player.collides('dangerous', (d) => {
       if (isJumping) {
-        destroy(d)
+        destroy(d);
       } else {
         localStorage.setItem(PLAYER_NAME, score);
-        go('lose', { score: scoreLabel.value })
+        go('lose', { score: scoreLabel.value });
       }
     })
 
     action('dangerous', (m) => {
-      m.move(-ENEMY_SPEED, 0)
-    })
+
+      if(m.direction) {
+        m.move(-ENEMY_SPEED, 0)
+      } else {
+        m.move(ENEMY_SPEED, 0)
+      }
+      
+        })
+
+        collides ('dangerous','bricks',(m,b) => {
+          if(m.direction) {
+            m.direction = false;
+          } else {
+            m.direction = true;
+
+          }
+    
+        })
+
+        collides ('dangerous','dangerous',(m,d) => {
+          temp = d.direction;
+          d.direction = m.direction;
+          m.direction = temp;
+    
+        })
 
     // action() runs every frame
     player.action(() => {
       // center camera to player
-      camPos(player.pos)
+      camPos(player.pos);
       // check fall death
       if (player.pos.y >= FALL_DEATH) {
         localStorage.setItem(PLAYER_NAME, score);
     
-        go('lose', { score: scoreLabel.value })
+        go('lose', { score: scoreLabel.value });
       }
     })
 
     player.action(() => {
       if (player.grounded()) {
-        isJumping = false
+        isJumping = false;
       }
     })
 
@@ -252,20 +279,20 @@ kaboom({
           level: (level + 1) % maps.length,
           score: scoreLabel.value,
           name: PLAYER_NAME,
-        })
+        });
       })
     })
 
     // jump with space
     keyPress('space', () => {
       if (player.grounded()) {
-        isJumping = true
+        isJumping = true;
         if(player.isBig()){
           play("jumpSuper");
         } else {
           play("jumpSmall");
         }
-        player.jump(CURRENT_JUMP_FORCE )
+        player.jump(CURRENT_JUMP_FORCE );
       }
     })
 
