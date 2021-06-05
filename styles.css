@@ -68,7 +68,6 @@ p { color: #adb7bd; font-family: 'Lucida Sans', Arial, sans-serif; font-size: 16
 
 
 
-@media only screen and (min-width: 640px) {
   .view {
     width: 320px;
     height: 233px;
@@ -91,33 +90,6 @@ p { color: #adb7bd; font-family: 'Lucida Sans', Arial, sans-serif; font-size: 16
     top: 0;
     left: 0
   }
-}
-
-
-@media only screen and (max-width: 640px) {
-  .view {
-    width: 640px;
-    height: 466px;
-    margin: 10px;
-    border: 10px solid #fff;
-    overflow: hidden;
-    position: relative;
-    text-align: center;
-    box-shadow: 1px 1px 2px #e6e6e6;
-    cursor: default;
-    background: #fff no-repeat center center
-  }
-
-
-  .view .mask, .view .content {
-    width: 640px;
-    height: 466px;
-    position: absolute;
-    overflow: hidden;
-    top: 0;
-    left: 0
-  }
-}
 
 
   .view img {
