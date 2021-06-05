@@ -56,19 +56,19 @@ kaboom({
 
   const maps = [
       [
-          '                                                ',
-          '                                                ',
-          '                                                ',
-          '             %                                  ',
-          '                                                ',
-          '                                                ',
-          '                                                ',
-          '                                                ',
-          '    %      =*=%=                                ',
-          '                                                ',
-          '                                  -+            ',
-          '                       ^      ^   ()            ',
-          '=====================================    =======',
+          '                                              -+  ',
+          '                                              ()  ',
+          '                                     ==     = ==  ',
+          '             %                       =            ',
+          '                                   ===            ',
+          '                         =    =                   ',
+          '                     =                            ',
+          '    %       =                                     ',
+          '                                                  ',
+          '      =                  =*=%=                    ',
+          '           =                                      ',
+          '?                 ^   ^     ^      ^ ?           =',
+          '======================================          ==',
         ],
     [
       '£                                                £',
@@ -90,24 +90,18 @@ kaboom({
   const levelCfg = {
     width: 20,
     height: 20,
-          // define each object as a list of components
-          '=': [sprite('block'), solid()],
-          '$': [sprite('coin'), 'coin'],
-          '%': [sprite('surprise'), scale(0.5),solid(), 'coin-surprise'],
-          '*': [sprite('surprise'), scale(0.5),solid(), 'mushroom-surprise'],
-          '}': [sprite('unboxed'), solid()],
-          ')': [sprite('pipe-right'), scale(0.5), solid()],
-          '(': [sprite('pipe-left'), scale(0.5), solid()],
-          '-': [sprite('pipe-top-left'), scale(0.5), solid(), 'pipe'],
-          '+': [sprite('pipe-top-right'), scale(0.5), solid(), 'pipe'],
-          '^': [
-            sprite('evil-shroom-one'),
-            solid(),
-            body(),
-            //tags as strings
-            'dangerous',
-            { direction: true}
-          ],
+    // define each object as a list of components
+    '=': [sprite('block'), solid()],
+    '?': [sprite('block'), solid(), 'bricks'],
+    '$': [sprite('coin'), 'coin'],
+    '%': [sprite('surprise'), scale(0.5),solid(), 'coin-surprise'],
+    '*': [sprite('surprise'), scale(0.5),solid(), 'mushroom-surprise'],
+    '}': [sprite('unboxed'), solid()],
+    ')': [sprite('pipe-right'), scale(0.5), solid()],
+    '(': [sprite('pipe-left'), scale(0.5), solid()],
+    '-': [sprite('pipe-top-left'), scale(0.5), solid(), 'pipe', 'bricks'],
+    '+': [sprite('pipe-top-right'), scale(0.5), solid(), 'pipe', 'bricks'],
+    '^': [sprite('evil-shroom-one'),solid(), body(), 'dangerous', { direction: true}],
     '#': [sprite('mushroom'), body(), 'mushroom'],
     '!': [sprite('blue-block'), scale(0.5), solid()],
     '£': [sprite('blue-brick'), scale(0.5), solid(), 'bricks'],
@@ -120,8 +114,8 @@ kaboom({
   const gameLevel = addLevel(maps[level], levelCfg);
 
   const scoreLabel = add([
-    text(score),
-    pos(30, 6),
+    text("Score: " + score),
+    pos(30, 15),
     layer('ui'),
     {
       value: score,
@@ -129,8 +123,8 @@ kaboom({
   ])
 
   const nameLabel = add([
-    text(PLAYER_NAME),
-    pos(100, 6),
+    text("Name: " + PLAYER_NAME),
+    pos(30, 24),
     layer('ui'),
     {
       value: PLAYER_NAME,
@@ -138,7 +132,7 @@ kaboom({
   ])
 
 
-    add([text('level ' + parseInt(level+ 1)), pos(40, 6)])
+    add([text("Level: " + parseInt(level+ 1)), pos(30, 6)])
 
 
     function big() {
@@ -213,7 +207,7 @@ kaboom({
       destroy(c);
       play("coin");
       scoreLabel.value++;
-      scoreLabel.text = scoreLabel.value;
+      scoreLabel.text = "Score: " + scoreLabel.value;
     })
 
 
@@ -222,8 +216,7 @@ kaboom({
       if (isJumping) {
         destroy(d);
       } else {
-        localStorage.setItem(PLAYER_NAME, score);
-        go('lose', { score: scoreLabel.value });
+        go('lose', { score: scoreLabel.value, name: nameLabel.value });
       }
     })
 
@@ -247,6 +240,8 @@ kaboom({
     
         })
 
+
+
         collides ('dangerous','dangerous',(m,d) => {
           temp = d.direction;
           d.direction = m.direction;
@@ -260,9 +255,7 @@ kaboom({
       camPos(player.pos);
       // check fall death
       if (player.pos.y >= FALL_DEATH) {
-        localStorage.setItem(PLAYER_NAME, score);
-    
-        go('lose', { score: scoreLabel.value });
+        go('lose', { score: scoreLabel.value, name: nameLabel.value });
       }
     })
 
@@ -284,7 +277,7 @@ kaboom({
     })
 
     // jump with space
-    keyPress('space', () => {
+    keyPress('up', () => {
       if (player.grounded()) {
         isJumping = true;
         if(player.isBig()){
@@ -306,23 +299,28 @@ kaboom({
 
   });
 
-scene('lose', ({ score }) => {
-  keys = Object.keys(localStorage)
-  add([text(score, 32), origin('center'), pos(width() / 2, height() / 2 - 64)])
-  add([text("Press enter", 32), origin('center'), pos(width() / 2, height() / 2-32)])
-  add([text("to play again !!", 32), origin('center'), pos(width() / 2, height() / 2)])
-  add([text("HighScore: ", 32), origin('center'), pos(width() / 2, height() / 2 + 32)])
-  add([text(keys[0] + " " +localStorage.getItem(keys[0]), 32), origin('center'), pos(width() / 2, height() / 2 + 64)])
+scene('lose', ({ score , name}) => {
+  var highScore =  localStorage.getItem('highScore');
 
-
+  if(highScore < score) {
+    localStorage.setItem('highScore', score);
+    localStorage.setItem('nameofPlayer', name);
+  }    
+  
+  add([text("Your score: "+ score, 32), origin('center'), pos(width() / 2, height() / 2 - 58)])
+  add([text("Press enter", 32), origin('center'), pos(width() / 2, height() / 2 - 25)])
+  add([text("to play again !!", 32), origin('center'), pos(width() / 2, height() / 2 + 5)])
+  add([text("High Score: ", 32), origin('center'), pos(width() / 2, 32)])
+  add([text(localStorage.getItem('nameofPlayer') + " with " + localStorage.getItem('highScore') + " points.", 32), origin('center'), pos(width() / 2, 70)])
+  
   play("deadSound")
-
-
-	keyPressRep("enter", () => {
+	
+  keyPressRep("enter", () => {
     go("menu", {})
 	});
 
 })
+
 
 
 scene('menu', () => {
@@ -330,7 +328,7 @@ scene('menu', () => {
   add([text("and press enter!", 32), origin('center'), pos(width() / 2, height() / 2 )])
 
   const input = add([
-		text("Your name", 24, {
+		text("your name", 24, {
 			width: width(),
 		}),      
     origin('center'), 

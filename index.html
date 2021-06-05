@@ -9,41 +9,73 @@
 
 </head>
 <body>
-  <nav>
+
+  
+
+  <nav class="container red topBotomBordersOut">
     <a href="index.html">HOME</a>
-    <a href="game.html">Hra zde</a>
+    <a href="game.html">GAME</a>
+  </nav>
 
 
+  <!--- <h1>Semestrální práce do předmětu KAJ</h1>  -->
 
-  </nav> 
+  <h2>Cíle projektu</h2>  
+
+  <p>
+    Cílem práce bylo vytvořit hru v jazyce JavaScript s použitím moderních technologií (HTML5, CSS3, JS2015).
+  </p>  
+
+  <h2>Popis funkčnosti</h2>  
+  
+  <h3>Domovská stránka</h3>  
+  <p>
+    Právě se nacházíte na domovské stránce, kde můžete vidět v horní částí nav bar s odkazem na výše zmíněnou hru.
+    Dále je zde popis aplikace, který právě čtete a v dolní části jsou dva obrázky, které po najetí myši zobrazí ovládaní a přehrávač se SuperMario soundtrackem (vytvořeno pomocí CSS3 animation a transition).
+  </p> 
+
+  <h3>Stránka se hrou</h3>  
+  <p>
+    Na této stránce se nachází pouze hra. Hra je udělána pomocí knihovny KaBoom.js. Tato knihovna byla vytvořena nedávno a je stále vyvíjena, 
+    ale jelikož autoři slibovali zábavné vytváření her, tak jsem zkusil hru pomocí této knihovny vytvořit.
+  </p>
+    
+  <p>
+    Hra se skládá ze scén, mezi kterými lze přecházet.<br>
+    První scéna je obrazovka, kde pomocí klávesnice lze napsat vaši herní přezdívku. Poté lze hru spustit pomocí tlačítka ENTER. Hra se ovládá šipkami 
+    (více infa naleznete u obrázku konzole). Po spuštění hry se načte první level. Obrazovka se skládá z několika vrstev. Uživatelského rozhraní, 
+    kde je zobrazeno hráčovo jméno, skóre a číslo levelu. Pozadí, což je pozadí a objektové vrsty, kde jsou vykreslovány všechny objekty hry (Mario, monstra, bloky).<br>
+  </p> 
+
+    
+    <p>
+    Cílem hry je získat, co nejvíce mincí, které vypadávají z označených kostiček. Hra končí, poté co hráč zemře (ať už spadne do hlubin, nebo ho zabije příšera). <br>
+    Po skončení hry se zobrazí scéna prohry, na které je zobrazené hráčovo skóre a nejvyšší skóre dosažené na daném počítači (ukládáno do LocalStorage).
+  </p> 
 
 
-  <p>Vítejte u mé semestrální práce do předmětu KAJ</p>
-
-
-
-
-<div class="view view-tenth">  
-  <img src="imgs/console.png" />  
-  <div class="mask">  
-  <h2>Ovládání</h2>  
-  <p>Pohyb doleva a doprava pomocí šipek dole a doprava, skok pomocí šipky nahoru, vstup do nového levelu pomocí šipky dolů.</p>  
+  <div class="view view-tenth">  
+    <img alt= "Obrázek XBOX konzole" src="imgs/console.png" />  
+    <div class="mask">  
+    <h2>Ovládání</h2>  
+    <p>Pohyb doleva a doprava pomocí šipek doleva a doprava, skok pomocí šipky nahoru, vstup do nového levelu pomocí šipky dolů.</p>  
+    </div>  
   </div>  
-</div>  
 
 
 
-<div class="view view-tenth">  
-  <img src="imgs/music.jpg" />  
-  <div class="mask">  
-  <h2>Originální muzika</h2>  
-  <p>Dopřejte si trochu nostalgie!</p>   
-  <audio controls>
-    <source src="sounds/htmlSong.mp3" type="audio/mpeg">
-    Váš internetový prohlížeč nepodporuje audio element.
-  </audio> 
+  <div class="view view-tenth">  
+    <img alt="SuperMario Soundtrack obrázek." src="imgs/music.jpg" />  
+    <div class="mask">  
+    <h2>Originální muzika</h2>  
+    <p>Dopřejte si trochu nostalgie!</p>   
+    <audio controls>
+      <source src="sounds/htmlSong.mp3" type="audio/mpeg">
+      Váš internetový prohlížeč nepodporuje audio element.
+    </audio> 
+    </div>  
   </div>  
-</div>  
+
 
 
 
