@@ -24,7 +24,7 @@ nav.container a
     cursor: pointer;
 }
 
-nav.topBotomBordersOut a:before, nav.topBotomBordersOut a:after
+nav a:before, nav a:after
 {
     position: absolute;
     left: 0px;
@@ -36,19 +36,19 @@ nav.topBotomBordersOut a:before, nav.topBotomBordersOut a:after
     transition: all 0.3s;
 }
 
-nav.topBotomBordersOut a:before
+nav a:before
 {
     top: 0px;
     transform: translateY(10px);
 }
 
-nav.topBotomBordersOut a:after
+nav a:after
 {
     bottom: 0px;
     transform: translateY(-10px);
 }
 
-nav.topBotomBordersOut a:hover:before, nav.topBotomBordersOut a:hover:after
+nav a:hover:before, nav a:hover:after
 {
     opacity: 1;
     transform: translateY(0px);
@@ -166,7 +166,7 @@ p { color: #adb7bd; font-family: 'Lucida Sans', Arial, sans-serif; font-size: 16
     box-shadow: 0 0 5px #000
   }
 
-  .view-tenth img { 
+  .view img { 
     transform: scaleY(1);
     -webkit-transition: all 0.7s ease-in-out;
     -moz-transition: all 0.7s ease-in-out;
@@ -174,7 +174,7 @@ p { color: #adb7bd; font-family: 'Lucida Sans', Arial, sans-serif; font-size: 16
     -o-transition: all 0.7s ease-in-out;
     transition: all 0.7s ease-in-out; 
   }
-  .view-tenth .mask { 
+  .view .mask { 
       background-color: rgba(255, 231, 179, 0.3); 
       -webkit-transition: all 0.5s linear;
       -moz-transition: all 0.5s linear;
@@ -182,7 +182,7 @@ p { color: #adb7bd; font-family: 'Lucida Sans', Arial, sans-serif; font-size: 16
       -o-transition: all 0.5s linear;
       transition: all 0.5s linear;     opacity: 0;
   }	
-  .view-tenth h2{
+  .view h2{
       border-bottom: 1px solid rgba(0, 0, 0, 0.3);
       background: transparent;
       margin: 20px 40px 0px 40px;
@@ -195,7 +195,7 @@ p { color: #adb7bd; font-family: 'Lucida Sans', Arial, sans-serif; font-size: 16
       transition: all 0.5s linear; 
       opacity: 0;
   }
-  .view-tenth p {
+  .view p {
       color: #333;
       opacity: 0;
       transform: scale(0);
@@ -204,7 +204,7 @@ p { color: #adb7bd; font-family: 'Lucida Sans', Arial, sans-serif; font-size: 16
       -ms-transition: all 0.5s linear;
       -o-transition: all 0.5s linear;
       transition: all 0.5s linear; }
-  .view-tenth a.info { 
+  .view a.info { 
       opacity: 0;
       transform: scale(0);
       -webkit-transition: all 0.5s linear;
@@ -213,16 +213,16 @@ p { color: #adb7bd; font-family: 'Lucida Sans', Arial, sans-serif; font-size: 16
       -o-transition: all 0.5s linear;
       transition: all 0.5s linear; }
 
-  .view-tenth:hover img { 
+  .view:hover img { 
     transform: scale(10);
       opacity: 0;
   }
-  .view-tenth:hover .mask { 
+  .view:hover .mask { 
     opacity: 1;
   }																			 
-  .view-tenth:hover h2,
-  .view-tenth:hover p,
-  .view-tenth:hover a.info{ 
+  .view:hover h2,
+  .view:hover p,
+  .view:hover a.info{ 
       transform: scale(1);
       opacity: 1;
   }

@@ -1,3 +1,4 @@
+//Inicialization of kaboom library
 kaboom({
     global: true,
     fullscreen: true,
@@ -5,7 +6,7 @@ kaboom({
     debug: true,
     clearColor: [0,0,0,1]
   })
-
+//loading sprites
   loadRoot('sprites/')
   loadSprite('coin', 'coin.png')
   loadSprite('evil-shroom-one', 'evil-shroom-1.png')
@@ -27,6 +28,7 @@ kaboom({
   loadSprite('blue-evil-shroom', 'blue-evil-shroom.png')
   loadSprite('blue-surprise', 'blue-surprise.png')
 
+  //loading sounds
   loadRoot('sounds/')
   loadSound("deadSound", "deadMario.wav");
   loadSound("powerOff", "smb_pipe.wav");
@@ -39,7 +41,7 @@ kaboom({
   loadSound("stageClear", "smb_stage_clear.wav");
 
 
-
+//setting up a game scene
   scene('game', ({ level, score, name }) => {
   const JUMP_FORCE = 360
   const BIG_JUMP_FORCE = 550
@@ -83,14 +85,14 @@ kaboom({
       '£          @@@@@             x x x x             £',
       '£                          x x x x x  x       -+ £',
       '£              z z       x x x x x x  x       () £',
-      '£!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!£',
+      '£!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!£',
     ],
   ];
 
   const levelCfg = {
     width: 20,
     height: 20,
-    // define each object as a list of components
+    // define each objects
     '=': [sprite('block'), solid()],
     '?': [sprite('block'), solid(), 'bricks'],
     '$': [sprite('coin'), 'coin'],
@@ -111,8 +113,10 @@ kaboom({
 
   };
 
+  //Defining game level
   const gameLevel = addLevel(maps[level], levelCfg);
 
+  //Defining labels and adding them into ui layer.
   const scoreLabel = add([
     text("Score: " + score),
     pos(30, 15),
@@ -132,13 +136,19 @@ kaboom({
   ])
 
 
-    add([text("Level: " + parseInt(level+ 1)), pos(30, 6)])
+    add(
+    [text("Level: " + parseInt(level+ 1)), 
+    pos(30, 6)],
+    layer('ui'),
 
+    )
 
+//Function that deals with powerUps and holds Mario state
     function big() {
       let timer = 0
       let isBig = false
       return {
+        //updating power up
         update() {
           if (isBig) {
             CURRENT_JUMP_FORCE = BIG_JUMP_FORCE
@@ -151,6 +161,7 @@ kaboom({
         isBig() {
           return isBig
         },
+        //reduce size of mario
         smallify() {
           this.scale = vec2(1)
           CURRENT_JUMP_FORCE = JUMP_FORCE
@@ -158,6 +169,7 @@ kaboom({
           isBig = false
           play("powerOff")
         },
+        //increase size of mario
         biggify(time) {
           this.scale = vec2(2)
           timer = time
@@ -167,21 +179,21 @@ kaboom({
       }
     }
 
+    //defining player
     const player = add([
       sprite('standing-mario'),
-      //give it position to apply gravity
       pos(30, 0),
-      //makes it fall with gravity
       body(),
       big(),
       origin("bot"),
     ])
 
+    //Moving with mushroom object
     action('mushroom', (m) => {
       m.move(10, 0);
     })
 
-    // grow an mushroom or flower if player's head bumps into an obj with "surprise" tag
+    // grow an mushroom or flower if player head bumps into an obj with "surprise" tag
     player.on('headbump', (obj) => {
       if (obj.is('coin-surprise')) {
         gameLevel.spawn('$', obj.gridPos.sub(0, 1));
@@ -195,14 +207,13 @@ kaboom({
       }
     })
 
-    // player grows big collides with an "mushroom" obj
+    // player increase size if he collides with an "mushroom" obj
     player.collides('mushroom', (m) => {
       destroy(m);
-      // as we defined in the big() component
       player.biggify(6);
     })
 
-    // increase score if meets coin
+    // increase score if colides with coin
     player.collides('coin', (c) => {
       destroy(c);
       play("coin");
@@ -211,7 +222,7 @@ kaboom({
     })
 
 
-
+    //if player jumps on enemy, enemy will die
     player.collides('dangerous', (d) => {
       if (isJumping) {
         destroy(d);
@@ -220,36 +231,33 @@ kaboom({
       }
     })
 
+    //moving with enemies
     action('dangerous', (m) => {
-
       if(m.direction) {
         m.move(-ENEMY_SPEED, 0)
       } else {
         m.move(ENEMY_SPEED, 0)
-      }
-      
-        })
+      }  
+      })
 
-        collides ('dangerous','bricks',(m,b) => {
-          if(m.direction) {
-            m.direction = false;
-          } else {
-            m.direction = true;
+      //If enemy collides with  bricks or with another enemy, he will change his direction
+      collides ('dangerous','bricks',(m,b) => {
+        if(m.direction) {
+          m.direction = false;
+        } else {
+          m.direction = true;
 
-          }
-    
-        })
+        }
+      })
 
+      collides ('dangerous','dangerous',(m,d) => {
+        temp = d.direction;
+        d.direction = m.direction;
+        m.direction = temp;
+  
+      })
 
-
-        collides ('dangerous','dangerous',(m,d) => {
-          temp = d.direction;
-          d.direction = m.direction;
-          m.direction = temp;
-    
-        })
-
-    // action() runs every frame
+      //player actions
     player.action(() => {
       // center camera to player
       camPos(player.pos);
@@ -258,13 +266,13 @@ kaboom({
         go('lose', { score: scoreLabel.value, name: nameLabel.value });
       }
     })
-
+    //checking if we can jump
     player.action(() => {
       if (player.grounded()) {
         isJumping = false;
       }
     })
-
+  //if player collide with pipe he can go to another level
     player.collides('pipe', () => {
       keyPress('down', () => {
         play("stageClear");
@@ -276,7 +284,7 @@ kaboom({
       })
     })
 
-    // jump with space
+    // jump, moving with arrows
     keyPress('up', () => {
       if (player.grounded()) {
         isJumping = true;
@@ -299,14 +307,15 @@ kaboom({
 
   });
 
+  //lose scene
 scene('lose', ({ score , name}) => {
+  //checking if player beated high score if so it will be stored in LocalStorage
   var highScore =  localStorage.getItem('highScore');
-
   if(highScore < score) {
     localStorage.setItem('highScore', score);
     localStorage.setItem('nameofPlayer', name);
   }    
-  
+  //adding text into canvas
   add([text("Your score: "+ score, 32), origin('center'), pos(width() / 2, height() / 2 - 58)])
   add([text("Press enter", 32), origin('center'), pos(width() / 2, height() / 2 - 25)])
   add([text("to play again !!", 32), origin('center'), pos(width() / 2, height() / 2 + 5)])
@@ -315,6 +324,7 @@ scene('lose', ({ score , name}) => {
   
   play("deadSound")
 	
+  //if player presses enter we will return on menu screen
   keyPressRep("enter", () => {
     go("menu", {})
 	});
@@ -322,11 +332,13 @@ scene('lose', ({ score , name}) => {
 })
 
 
-
+//menu scene
 scene('menu', () => {
+  //adding text to canvas
   add([text("Fill up your name", 32), origin('center'), pos(width() / 2, height() / 2 - 32)])
   add([text("and press enter!", 32), origin('center'), pos(width() / 2, height() / 2 )])
 
+  //creating input cons and adding it to canvas
   const input = add([
 		text("your name", 24, {
 			width: width(),
@@ -336,19 +348,22 @@ scene('menu', () => {
     height() / 2 + 32)
 	]);
 
+  //adding chars pressed to input
 	charInput((ch) => {
 		input.text += ch;
 	});
 
+  //if we press enter the game will start
 	keyPressRep("enter", () => {
     go("game", {level: 0, score: 0, name: input.text})
 	});
 
+    //if we press backspace it will delete one char
 	keyPressRep("backspace", () => {
 		input.text = input.text.substring(0, input.text.length - 1);
 	});
 
 })
 
-
+//game is starting on menu scene
 start("menu", { level: 0, score: 0, });

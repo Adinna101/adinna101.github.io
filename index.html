@@ -11,14 +11,14 @@
 <body>
 
   
-
-  <nav class="container red topBotomBordersOut">
+<!-- Nav bar with links-->
+  <nav class="container">
     <a href="index.html">HOME</a>
     <a href="game.html">GAME</a>
   </nav>
 
 
-  <!--- <h1>Semestrální práce do předmětu KAJ</h1>  -->
+  <!---už je v title <h1>Semestrální práce do předmětu KAJ</h1>  -->
 
   <h2>Cíle projektu</h2>  
 
@@ -31,7 +31,8 @@
   <h3>Domovská stránka</h3>  
   <p>
     Právě se nacházíte na domovské stránce, kde můžete vidět v horní částí nav bar s odkazem na výše zmíněnou hru.
-    Dále je zde popis aplikace, který právě čtete a v dolní části jsou dva obrázky, které po najetí myši zobrazí ovládaní a přehrávač se SuperMario soundtrackem (vytvořeno pomocí CSS3 animation a transition).
+    Dále je zde popis aplikace, který právě čtete a v dolní části jsou dva obrázky, které po najetí myši zobrazí ovládaní a přehrávač se SuperMario soundtrackem 
+    (vytvořeno pomocí CSS3 animation a transition). Dále je tato stránka ukládána pomocí JavaScriptu do cache, tudíž je přístupná i v offline stavu.
   </p> 
 
   <h3>Stránka se hrou</h3>  
@@ -54,7 +55,8 @@
   </p> 
 
 
-  <div class="view view-tenth">  
+
+  <div class="view">  
     <img alt= "Obrázek XBOX konzole" src="imgs/console.png" />  
     <div class="mask">  
     <h2>Ovládání</h2>  
@@ -64,7 +66,7 @@
 
 
 
-  <div class="view view-tenth">  
+  <div class="view">  
     <img alt="SuperMario Soundtrack obrázek." src="imgs/music.jpg" />  
     <div class="mask">  
     <h2>Originální muzika</h2>  
@@ -75,7 +77,7 @@
     </audio> 
     </div>  
   </div>  
-
+<!-- Script that register serviceWorker for saving this page to cache-->
   <script>navigator.serviceWorker.register("sw.js");</script>
 
 </body>

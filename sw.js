@@ -1,5 +1,5 @@
 const CACHE_NAME = "offline";
-const urlsToCache = [".","index.html", "styles.css", "sounds/htmlSong.mp3"];
+const urlsToCache = [".","index.html", "styles.css", "sounds/htmlSong.mp3","imgs/music.jpg","imgs/console.png"];
 
 async function precache() {
 	const cache = await caches.open(CACHE_NAME);
@@ -9,8 +9,9 @@ async function precache() {
 async function respondTo(request) {
 	let f = fetch(request);
 	const cached = await caches.match(request);
-
-	if (cached) { // try updating the cache first
+	
+	// try updating the cache first
+	if (cached) { 
 		try {
 			let response = await f;
 			let cache = await caches.open(CACHE_NAME);
@@ -19,7 +20,8 @@ async function respondTo(request) {
 		} catch (e) { // offline
 			return cached;
 		}
-	} else { // not cached, forward to network
+	} else { 
+		// not cached, forward to network
 		return f;
 	}
 };
