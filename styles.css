@@ -99,9 +99,7 @@ p { color: #adb7bd; font-family: 'Lucida Sans', Arial, sans-serif; font-size: 16
 
 
 
-  @media screen and (min-device-aspect-ratio: 9/16) {
-
-
+  @media screen and (device-aspect-ratio: 9/16) {
     .view {
       width: 640px;
       height: 466px;
