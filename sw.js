@@ -1,5 +1,5 @@
 const CACHE_NAME = "offline";
-const urlsToCache = [".", "scenes/game.js"];
+const urlsToCache = [".","game.html", "scenes/game.js", "styles.css"];
 
 async function precache() {
 	const cache = await caches.open(CACHE_NAME);
