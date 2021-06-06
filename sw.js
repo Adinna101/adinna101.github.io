@@ -1,5 +1,5 @@
 const CACHE_NAME = "offline";
-const urlsToCache = [".","index.html", "styles.css", "sounds/htmlSong.mp3","imgs/music.jpg","imgs/console.png"];
+const urlsToCache = [".","index.html", "styles/stylesheet.css", "sounds/htmlSong.mp3","imgs/music.jpg","imgs/console.png"];
 
 async function precache() {
 	const cache = await caches.open(CACHE_NAME);
