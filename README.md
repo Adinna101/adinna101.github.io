@@ -10,9 +10,9 @@
   
 ## Domovská stránka  
   
-    Právě se nacházíte na domovské stránce, kde můžete vidět v horní částí nav bar s odkazem na výše zmíněnou hru.
-    Dále je zde popis aplikace, který právě čtete a v dolní části jsou dva obrázky, které po najetí myši zobrazí ovládaní a přehrávač se SuperMario soundtrackem 
-    (vytvořeno pomocí CSS3 animation a transition). Dále je tato stránka ukládána pomocí JavaScriptu do cache, tudíž je přístupná i v offline stavu.
+Právě se nacházíte na domovské stránce, kde můžete vidět v horní částí nav bar s odkazem na výše zmíněnou hru.
+Dále je zde popis aplikace, který právě čtete a v dolní části jsou dva obrázky, které po najetí myši zobrazí ovládaní a přehrávač se SuperMario soundtrackem 
+(vytvořeno pomocí CSS3 animation a transition). Dále je tato stránka ukládána pomocí JavaScriptu do cache, tudíž je přístupná i v offline stavu.
    
 
 ## Stránka se hrou
